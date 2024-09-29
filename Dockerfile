@@ -1,4 +1,4 @@
 FROM openjdk:latest
-COPY ./target/classes/org /tmp/org
+COPY ./target/seMethods-1.0-SNAPSHOT-jar-with-dependencies.jar /tmp
 WORKDIR /tmp
-ENTRYPOINT ["java", "org.napier.sem.Main"]
+ENTRYPOINT ["java", "-jar", "seMethods-1.0-SNAPSHOT-jar-with-dependencies.jar"]
