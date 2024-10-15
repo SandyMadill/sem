@@ -9,12 +9,15 @@ public class Main
     {
         // Create new Application
         App a = new App();
+
         // Connect to database
         a.connect();
-        // Get Employee
-        ArrayList<Employee> employees = a.getEmployeesByRole("Engineer");
-        // Display results
-        employees.forEach(a::displayEmployee);
+
+        // Extract employee salary information
+        ArrayList<Employee> employees = a.getAllSalaries();
+
+        // Test the size of the returned data - should be 240124
+        System.out.println(employees.size());
 
         // Disconnect from database
         a.disconnect();
