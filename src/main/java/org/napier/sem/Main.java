@@ -9,12 +9,14 @@ public class Main
     {
         // Create new Application
         App a = new App();
+
         // Connect to database
         a.connect();
-        // Get Employee
-        ArrayList<Employee> employees = a.getEmployeesByRole("Engineer");
-        // Display results
-        employees.forEach(a::displayEmployee);
+
+        // Extract employee salary information
+        ArrayList<Employee> employees = a.getAllSalaries();
+
+        a.printSalaries(employees);
 
         // Disconnect from database
         a.disconnect();
