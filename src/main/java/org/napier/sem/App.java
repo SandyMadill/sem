@@ -1,5 +1,7 @@
 package org.napier.sem;
+import javax.swing.plaf.nimbus.State;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class App
 {
@@ -98,6 +100,45 @@ public class App
         }
         catch (Exception e)
         {
+            System.out.println(e.getMessage());
+            System.out.println("Failed to get employee details");
+            return null;
+        }
+    }
+
+    public ArrayList<Employee> getEmployeesByRole(String role){
+        try{
+            ArrayList<Employee> employees = new ArrayList<>();  //  results of the query will but inserted into this and then returned
+
+            //  create an SQL statement
+            Statement stmt = con.createStatement();
+
+            //  create a string for the sql statement
+            String strSelect =
+                    "SELECT employees.emp_no, employees.first_name, employees.last_name, salaries.salary, titles.title " +
+                    "FROM employees, salaries, titles " +
+                    "WHERE employees.emp_no = salaries.emp_no " +
+                    "AND employees.emp_no = titles.emp_no " +
+                    "AND salaries.to_date = '9999-01-01' " +
+                    "AND titles.to_date = '9999-01-01' " +
+                    "AND titles.title = '" + role + "'" +
+                    "ORDER BY employees.emp_no ASC ";
+            // Execute SQL statement
+            ResultSet rset = stmt.executeQuery(strSelect);
+
+
+            while (rset.next()){
+                Employee emp = new Employee();
+                emp.emp_no = rset.getInt("emp_no");
+                emp.first_name = rset.getString("first_name");
+                emp.last_name = rset.getString("last_name");
+                emp.title = rset.getString("title");
+                employees.add(emp);
+            }
+
+            return employees;
+
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
             System.out.println("Failed to get employee details");
             return null;

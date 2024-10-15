@@ -1,6 +1,7 @@
 package org.napier.sem;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 public class Main
 {
@@ -8,13 +9,12 @@ public class Main
     {
         // Create new Application
         App a = new App();
-        System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         // Connect to database
         a.connect();
         // Get Employee
-        Employee emp = a.getEmployee(255530);
+        ArrayList<Employee> employees = a.getEmployeesByRole("Engineer");
         // Display results
-        a.displayEmployee(emp);
+        employees.forEach(a::displayEmployee);
 
         // Disconnect from database
         a.disconnect();
